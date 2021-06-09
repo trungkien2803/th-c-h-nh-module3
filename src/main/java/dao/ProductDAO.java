@@ -15,6 +15,8 @@ public class ProductDAO implements IProductDAO{
     private final String FIND_ALL_CATEGORY = "call finAllCategory";
     private final String CREATE_PRODUCT = "call createProduct(?,?,?,?,?,?)";
     private final String DELETE_PRODUCT = "call deleteProduct(?)";
+    private final String EDIT_PRODUCT = "call editProduct(?,?,?,?,?,?,?)";
+    private final String FIND_PRODUCT = "call findProduct(?)";
 
     @Override
     public List<Product> findAll() {
@@ -59,8 +61,28 @@ public class ProductDAO implements IProductDAO{
     }
 
     @Override
-    public Product findById(int id) {
-        return null;
+    public List<Product> findByName(String nameP) {
+        List<Product> products = new ArrayList<>();
+        Connection connection = SQLConnection.getConnection();
+        try {
+            CallableStatement callableStatement = connection.prepareCall(FIND_PRODUCT);
+            callableStatement.setString(1,"%"+ nameP+"%");
+            ResultSet resultSet = callableStatement.executeQuery();
+            while (resultSet.next()){
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                double price = resultSet.getDouble("price");
+                double amount = resultSet.getDouble("amount");
+                String color = resultSet.getString("color");
+                String description = resultSet.getString("description");
+                String categoryName = resultSet.getString("categoryName");
+                products.add(new Product(id,name,price,amount,color,description,categoryName));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return products;
     }
 
     @Override
@@ -75,6 +97,7 @@ public class ProductDAO implements IProductDAO{
             callableStatement.setString(4,product.getColor());
             callableStatement.setString(5,product.getDescription());
             callableStatement.setInt(6,Integer.parseInt(product.getCategory()));
+            rowInsert = callableStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,7 +106,22 @@ public class ProductDAO implements IProductDAO{
 
     @Override
     public boolean update(int id, Product product) {
-        return false;
+        Connection connection = SQLConnection.getConnection();
+        int rowInsert = 0;
+        try {
+            CallableStatement callableStatement = connection.prepareCall(EDIT_PRODUCT);
+            callableStatement.setInt(1,id);
+            callableStatement.setString(2,product.getName());
+            callableStatement.setDouble(3,product.getPrice());
+            callableStatement.setDouble(4,product.getAmount());
+            callableStatement.setString(5,product.getColor());
+            callableStatement.setString(6,product.getDescription());
+            callableStatement.setInt(7,Integer.parseInt(product.getCategory()));
+            rowInsert = callableStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return rowInsert != 0;
     }
 
     @Override

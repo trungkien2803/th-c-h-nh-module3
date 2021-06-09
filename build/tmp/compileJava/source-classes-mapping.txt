@@ -1,15 +1,15 @@
+dao/SQLConnection.java
+ dao.SQLConnection
+model/Product.java
+ model.Product
+model/Category.java
+ model.Category
 service/IProductService.java
  service.IProductService
 dao/IProductDAO.java
  dao.IProductDAO
 controller/ProductServlet.java
  controller.ProductServlet
-dao/SQLConnection.java
- dao.SQLConnection
-model/Category.java
- model.Category
-model/Product.java
- model.Product
 dao/ProductDAO.java
  dao.ProductDAO
 service/ProductService.java

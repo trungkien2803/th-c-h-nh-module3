@@ -8,7 +8,7 @@ import java.util.List;
 public interface IProductService {
     List<Product> findAll();
     List<Category> findAllCategory();
-    Product findById(int id);
+    List<Product> findByName(String id);
     boolean create(Product product);
     boolean update(int id, Product product);
     boolean delete(int id);

@@ -38,7 +38,13 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void showListProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Product> products = productService.findAll();
+        List<Product> products = new ArrayList<>();
+        String query = request.getParameter("search");
+        if (query == "" || query == null) {
+            products = productService.findAll();
+        } else {
+            products = productService.findByName(query);
+        }
         List<Category> categories = productService.findAllCategory();
         request.setAttribute("products", products);
         request.setAttribute("categories",categories);
@@ -55,6 +61,7 @@ public class ProductServlet extends HttpServlet {
             switch (action){
                 case "edit":
                     edit(request,response);
+                    break;
                 case "create":
                     create(request,response);
                     break;
@@ -72,14 +79,14 @@ public class ProductServlet extends HttpServlet {
         Product product = new Product(name,price,amount,color,description,category);
         productService.update(id, product);
         try {
-            response.sendRedirect("/teachers");
+            response.sendRedirect("/products");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    private void create(HttpServletRequest request, HttpServletResponse response) {
+    private void create(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String name = request.getParameter("name");
         Double price = Double.parseDouble(request.getParameter("price"));
         Double amount =  Double.parseDouble(request.getParameter("amount"));
@@ -88,5 +95,6 @@ public class ProductServlet extends HttpServlet {
         String category = request.getParameter("category");
         Product product = new Product(name,price,amount,color,description,category);
         productService.create(product);
+        response.sendRedirect("/products");
     }
 }

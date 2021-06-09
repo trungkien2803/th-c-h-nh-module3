@@ -16,9 +16,10 @@ public class ProductService implements IProductService{
     public List<Category> findAllCategory(){
         return productDAO.findAllCategory();
     }
+
     @Override
-    public Product findById(int id) {
-        return null;
+    public List<Product> findByName(String id) {
+        return productDAO.findByName(id);
     }
 
     @Override
@@ -28,7 +29,7 @@ public class ProductService implements IProductService{
 
     @Override
     public boolean update(int id, Product product) {
-        return false;
+        return productDAO.update(id,product);
     }
 
     @Override

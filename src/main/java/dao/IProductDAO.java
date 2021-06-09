@@ -8,7 +8,7 @@ import java.util.List;
 public interface IProductDAO {
     List<Product> findAll();
     List<Category> findAllCategory();
-    Product findById(int id);
+    List<Product> findByName(String name);
     boolean create(Product product);
     boolean update(int id, Product product);
     boolean delete(int id);
