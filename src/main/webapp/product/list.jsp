@@ -10,75 +10,79 @@
     <title>Hello, world!</title>
 </head>
 <body>
-<form>
-    <input type="search" name="search">
-</form>
+<div style="margin: 0 auto; display:flex;justify-content: space-between;width: 1200px">
+    <button type="submit" onclick="openForm('form-create','')">Add</button>
+    <form class="d-flex">
+        <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
 
-<button type="submit" onclick="openForm('form-create','')">Add</button>
-<form method="post" action="/products?action=create" style="display: none" id="form-create">
-    <h1>Add New Product</h1>
-    <input name="name" type="text" placeholder="name">
-    <input name="price" type="number" placeholder="price">
-    <input name="amount" type="number" placeholder="amount">
-    <input name="color" type="text" placeholder="color">
-    <input name="description" type="text" placeholder="description">
-    <select name="category">
-        <c:forEach items="${categories}" var="category22">
-            <option  value= "<c:out value="${category22.id}"></c:out>">
-                <c:out value="${category22.name}"></c:out>
-            </option>
-        </c:forEach>
-    </select>
-    <button type="submit">Add</button>
-</form>
-<form method="post" action="" style="display: none" id="form-edit">
-    <h1>EDIT Product</h1>
-    <input name="name" type="text" placeholder="name">
-    <input name="price" type="number" placeholder="price">
-    <input name="amount" type="number" placeholder="amount">
-    <input name="color" type="text" placeholder="color">
-    <input name="description" type="text" placeholder="description">
-    <select name="category">
-        <c:forEach items="${categories}" var="category22">
-            <option  value= "<c:out value="${category22.id}"></c:out>">
-                <c:out value="${category22.name}"></c:out>
-            </option>
-        </c:forEach>
-    </select>
-    <button type="submit">EDIT</button>
-</form>
-<table class="table table-striped table-hover">
-    <tr>
-        <th>ID</th>
-        <th>NAME</th>
-        <th>PRICE</th>
-        <th>AMOUNT</th>
-        <th>COLOR</th>
-        <th>CATEGORY</th>
-        <th>ACTION</th>
-    </tr>
-    <c:forEach items="${products}" var="product">
+</div>
+<div style="width: 1200px; margin:  0 auto">
+    <form method="post" action="/products?action=create" style="display: none" id="form-create">
+        <h1>Add New Product</h1>
+        <input name="name" type="text" placeholder="name">
+        <input name="price" type="number" placeholder="price">
+        <input name="amount" type="number" placeholder="amount">
+        <input name="color" type="text" placeholder="color">
+        <input name="description" type="text" placeholder="description">
+        <select name="category">
+            <c:forEach items="${categories}" var="category22">
+                <option  value= "<c:out value="${category22.id}"></c:out>">
+                    <c:out value="${category22.name}"></c:out>
+                </option>
+            </c:forEach>
+        </select>
+        <button type="submit">Add</button>
+    </form>
+    <form method="post" action="" style="display: none" id="form-edit">
+        <h1>EDIT Product</h1>
+        <input name="name" type="text" placeholder="name">
+        <input name="price" type="number" placeholder="price">
+        <input name="amount" type="number" placeholder="amount">
+        <input name="color" type="text" placeholder="color">
+        <input name="description" type="text" placeholder="description">
+        <select name="category">
+            <c:forEach items="${categories}" var="category22">
+                <option  value= "<c:out value="${category22.id}"></c:out>">
+                    <c:out value="${category22.name}"></c:out>
+                </option>
+            </c:forEach>
+        </select>
+        <button type="submit">EDIT</button>
+    </form>
+    <table class="table table-striped table-hover" style="text-align: center">
         <tr>
-            <td><c:out value="${product.id}"></c:out></td>
-            <td><c:out value="${product.name}"></c:out></td>
-            <td><c:out value="${product.price}"></c:out></td>
-            <td><c:out value="${product.amount}"></c:out></td>
-            <td><c:out value="${product.color}"></c:out></td>
-            <td><c:out value="${product.category}"></c:out></td>
-            <td></td>
-            <td>
-                <button name="id" class="button">
-                    <a href="/products?action=delete&id=${product.id}">DELETE</a>
-                </button>
-            </td>
-            <td>
-                <button id="${product.id}" onclick="openForm('form-edit',this.id)">
-                   EDIT
-                </button>
-            </td>
+            <th>ID</th>
+            <th>NAME</th>
+            <th>PRICE</th>
+            <th>AMOUNT</th>
+            <th>COLOR</th>
+            <th>CATEGORY</th>
+            <th>ACTION</th>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach items="${products}" var="product">
+            <tr>
+                <td><c:out value="${product.id}"></c:out></td>
+                <td><c:out value="${product.name}"></c:out></td>
+                <td><c:out value="${product.price}"></c:out></td>
+                <td><c:out value="${product.amount}"></c:out></td>
+                <td><c:out value="${product.color}"></c:out></td>
+                <td><c:out value="${product.category}"></c:out></td>
+                <td>
+                    <button name="id" class="button">
+                        <a href="/products?action=delete&id=${product.id}">DELETE</a>
+                    </button>
+
+                    <button id="${product.id}" onclick="openForm('form-edit',this.id)">
+                        EDIT
+                    </button>
+                </td>
+
+            </tr>
+        </c:forEach>
+    </table>
+</div>
 
 </body>
 <script>
