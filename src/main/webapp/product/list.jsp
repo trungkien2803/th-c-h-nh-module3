@@ -11,20 +11,20 @@
 </head>
 <body>
 <button type="button" onclick="openForm('form-create')">Add</button>
-<form action="/products?action=create" style="display: none" id="form-create">
+<form method="post" action="/products?action=create" style="display: none" id="form-create">
     <h1>Add New Product</h1>
     <input name="name" type="text" placeholder="name">
     <input name="price" type="number" placeholder="price">
     <input name="amount" type="number" placeholder="amount">
     <input name="color" type="text" placeholder="color">
     <input name="description" type="text" placeholder="description">
-<%--    <select name="category">--%>
-<%--&lt;%&ndash;        <c:forEach items="${categories}" var="category">&ndash;%&gt;--%>
-<%--&lt;%&ndash;            <option value= "<c:out value="${category.Id}"></c:out>">&ndash;%&gt;--%>
-<%--&lt;%&ndash;                <c:out value="${category.name}"></c:out>&ndash;%&gt;--%>
-<%--&lt;%&ndash;            </option>&ndash;%&gt;--%>
-<%--&lt;%&ndash;        </c:forEach>&ndash;%&gt;--%>
-<%--    </select>--%>
+    <select name="category">
+        <c:forEach items="${categories}" var="category22">
+            <option value= "<c:out value="${category22.Id}"></c:out>">
+                <c:out value="${category22.name}"></c:out>
+            </option>
+        </c:forEach>
+    </select>
     <button type="submit">Add</button>
 </form>
 
